@@ -1,0 +1,76 @@
+{%- liquid
+  assign results = collection
+-%}
+
+<script src="{{ 'otw-filters.js' | asset_url }}" defer="defer"></script>
+
+<div class="aab-container-1">
+  {%- paginate collection.products by section.settings.products_per_page -%}
+    <div class="aab-wrap-3">
+      <div class="aab-wrap-1">
+        {%- for filter in results.filters -%}
+          {% if filter.values.size > 1 %}
+            {%- for value in filter.values -%}
+              <a
+                href="#"
+                class="aab-wrap-2 w-inline-block filter {% if value.active %} active {% endif %}"
+                otw-data-filter="{{ filter.param_name }}"
+                otw-data-value="{{ value.value }}"
+              >
+                <div class="aab-text-1" otw-filter-name>{{ value.label | escape }}</div>
+              </a>
+            {%- endfor -%}
+          {% endif %}
+        {% endfor %}
+            <a href="#" onclick="clearFilters()" role="button" otw-remove-filters
+            class="aab-wrap-2 w-inline-block hide">
+                <div class="aab-text-1">Clear All</div>
+            </a>
+      </div>
+
+      <div class="aab-grid-1" id="otw-products-container">
+        {%- for product in collection.products -%}
+          {% if lazy_load == false and forloop.index > 3 %}
+            {% assign lazy_load = true %}
+          {% endif %}
+
+          {% render 'otw-card-product',
+            c_product: product,
+            show_compare_at_price: true,
+            section_id: section.id,
+            lazy_load: lazy_load
+          %}
+        {%- endfor -%}
+      </div>
+      <div id="otw-pagination">
+        {%- if paginate.pages > 1 -%}
+          {% render 'pagination', paginate: paginate, anchor: '' %}
+        {%- endif -%}
+      </div>
+    </div>
+  {% endpaginate %}
+</div>
+{% schema %}
+{
+  "name": "Octra | Product Grid",
+  "class": "aab-section-1",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 2,
+      "max": 32,
+      "step": 1,
+      "default": 20,
+      "label": "Paginacion"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Octra | Product Grid",
+      "category": "t:sections.main-collection-product-grid.category"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,41 @@
+{% assign testimonial = section.settings.testimonial %}
+{% if testimonial != blank %}
+<div class="rom-container-1">
+    <div class="rom-wrap-1">
+        <div class="rom-wrap-2">
+            <p class="rom-paragraph-1">{{ testimonial.testimonial }}</p>
+        </div>
+        <div class="rom-wrap-3">
+            {% if testimonial.image %}
+                {% render 'otw-image', image: testimonial.image, class: 'nom-image-1' %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% schema %}
+{
+  "name": "Octra | Testimonial",
+  "tag": "section",
+  "class": "jum-section-1",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "metaobject",
+      "id": "testimonial",
+      "label": "Testimonial",
+      "metaobject_type": "testimonial"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Octra | Testimonial",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

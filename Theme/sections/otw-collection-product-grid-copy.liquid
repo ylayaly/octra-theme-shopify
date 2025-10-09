@@ -1,0 +1,77 @@
+<div class="aab-container-1">
+  <div class="aab-wrap-3">
+    <div class="aab-wrap-1">
+      <a href="#" class="aab-wrap-2 w-inline-block">
+        <div class="aab-text-1">Shop Full Collection</div>
+      </a>
+      <a href="#" class="aab-wrap-2 w-inline-block">
+        <div class="aab-text-1">Shop Bundles and save</div>
+      </a>
+      <a href="#" class="aab-wrap-2 w-inline-block">
+        <div class="aab-text-1">Shop Bundles and save</div>
+      </a>
+      <a href="#" class="aab-wrap-2 w-inline-block">
+        <div class="aab-text-1">Bundles and save</div>
+      </a>
+    </div>
+    <div class="aab-grid-1">
+      {%- for product in collection.products -%}
+        {% if lazy_load == false and forloop.index > 3 %}
+          {% assign lazy_load = true %}
+        {% endif %}
+
+        {% render 'otw-card-product',
+          c_product: product,
+          show_compare_at_price: true,
+          section_id: section.id,
+          lazy_load: lazy_load
+        %}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Octra | Collection Grid",
+  "tag": "section",
+  "class": "aab-section-1",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Heading 1"
+        },
+        {
+          "value": "h2",
+          "label": "Heading 2"
+        },
+        {
+          "value": "h3",
+          "label": "Heading 3"
+        }
+      ],
+      "default": "h2",
+      "label": "Heading tag"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Explore our full collection of clean, science-backed supplements—available as single products or bundled for better value."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Octra | Collection Grid",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,45 @@
+
+<div class="rom-container-1">
+    <div class="rom-wrap-1">
+        <div class="rom-wrap-2">
+            <div class="rom-paragraph-1">{{ section.settings.text }}</div>
+        </div>
+        <div class="rom-wrap-3">
+            {% if section.settings.image %}
+                {% render 'otw-image', image: section.settings.image, class: 'nom-image-1' %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+{% schema %}
+{
+  "name": "Octra | Text & Image",
+  "tag": "section",
+  "class": "rom-section-1",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Octra was founded by me, Damien, after a personal transformation that changed my life. I used to be unhealthy and overweight, struggling with consistency and balance. Through discipline, fitness, eating well, and taking the right supplements, I rebuilt my body and my lifestyle. Along the way, I realised how complicated the supplement world had become—overloaded with powders, pills, and promises. OCTRA was born to strip it back: simple, effective products that support focus, strength, and wellness every single day.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Octra | Test & Image",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

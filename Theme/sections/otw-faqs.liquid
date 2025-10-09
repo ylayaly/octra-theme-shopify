@@ -1,0 +1,92 @@
+{% assign component = section.settings.component %}
+{% if component != blank %}
+  <div class="plo-container-1">
+    <div class="plo-wrap-1">
+      <div class="plo-wrap-2">
+        <{{ section.settings.heading_tag }} class="plo-heading-1">
+          {{- component.heading.value | escape -}}
+        </{{ section.settings.heading_tag }}>
+      </div>
+      <div class="plo-wrap-3">
+        {% for faq in component.faqs.value %}
+          <div class="plo-wrap-4">
+            <div data-w-id="802d1f0a-26b2-19d2-66af-a4a3947ca073" class="plo-wrap-5">
+              <div class="plo-wrap-7">
+                <div class="plo-text-1">{{ faq.question | escape }}</div>
+              </div>
+              <div class="plo-wrap-1-3">
+                <img
+                  src="{{ 'otw-icon-plus.png' | asset_url }}"
+                  width="auto"
+                  height="auto"
+                  loading="lazy"
+                  style="display:block"
+                  alt=""
+                  class="plo-icon-3"
+                >
+                <img
+                  src="{{ 'otw-icon-minus.svg' | asset_url }}"
+                  width="auto"
+                  height="auto"
+                  loading="lazy"
+                  alt=""
+                  class="plo-icon-4"
+                >
+              </div>
+            </div>
+            <div style="display:none" class="plo-wrap-6">
+              <p class="plo-paragrpah-1">
+                {{ faq.answer | escape }}
+              </p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Octra | FAQs",
+  "tag": "section",
+  "class": "plo-section-1",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "metaobject",
+      "id": "component",
+      "label": "Component",
+      "metaobject_type": "faqs_component"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Heading 1"
+        },
+        {
+          "value": "h2",
+          "label": "Heading 2"
+        },
+        {
+          "value": "h3",
+          "label": "Heading 3"
+        }
+      ],
+      "default": "h2",
+      "label": "Heading tag"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Octra | Compare",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

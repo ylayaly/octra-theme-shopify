@@ -1,0 +1,375 @@
+<section class="buh-section-1">
+  <div class="buh-container-1">
+    <div class="buh-wrap-1">
+      {%- if section.settings.newsletter_enable -%}
+        <div class="buh-wrap-2">
+          {%- if section.settings.newsletter_heading != blank -%}
+            <h2 class="buh-heading-1">{{ section.settings.newsletter_heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.newsletter_subheading != blank -%}
+            <div class="buh-text-1">{{ section.settings.newsletter_subheading }}</div>
+          {%- endif -%}
+
+          <div class="buh-wrap-1-3">
+            <div class="buh-form-1 w-form">
+              {%- form 'customer', id: 'ContactFooter', class: 'buh-form-1 w-form' -%}
+                <div class="buh-form-2">
+                  <input type="hidden" name="contact[tags]" value="newsletter">
+                  <div class="buh-wrap-4">
+                    <input
+                      class="buh-imput-1 w-input"
+                      maxlength="256"
+                      name="contact[email]"
+                      placeholder="Email"
+                      aria-required="true"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      autocomplete="email"
+                      id="NewsletterForm--{{ section.id }}"
+                      required=""
+                      type="email"
+                      {% if form.errors %}
+                        autofocus
+                        aria-invalid="true"
+                        aria-describedby="ContactFooter-error"
+                      {% elsif form.posted_successfully? %}
+                        aria-describedby="ContactFooter-success"
+                      {% endif %}
+                      placeholder="{{ 'newsletter.label' | t }}"
+                    >
+                    <div class="buh-wrap-1-2">
+                      <div class="divancla">
+                        <div class="boton-estetico">
+                          <img
+                            src="{{ 'otw-icon-arrow-2.png' | asset_url }}"
+                            loading="lazy"
+                            width="auto"
+                            height="auto"
+                            alt=""
+                            class="buh-icon-2"
+                          >
+                        </div>
+                        <input
+                          type="submit"
+                          class="botondeverdad w-button"
+                          name="commit"
+                          id="Subscribe"
+                          value="Submit"
+                          aria-label="{{ 'newsletter.button_label' | t }}"
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {%- if form.posted_successfully? -%}
+                  <div class="w-form-done" id="ContactFooter-success" tabindex="-1" autofocus>
+                    <div>{{- 'newsletter.success' | t }}</div>
+                  </div>
+                {%- endif -%}
+
+                {%- if form.errors -%}
+                  <div class="w-form-fail" id="ContactFooter-error">
+                    <div>
+                      {{- form.errors.translated_fields.email | capitalize }}
+                      {{ form.errors.messages.email -}}
+                    </div>
+                  </div>
+                {%- endif -%}
+              {%- endform -%}
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+      <div class="buh-wrap-3">
+        <div class="buh-wrap-5">
+          <a href="{{ routes.root_url }}" class="buh-link-block-1 w-inline-block">
+            {%- if settings.logo != blank -%}
+              {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+              {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
+              {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
+              {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
+              {{
+                settings.logo
+                | image_url: width: 600
+                | image_tag:
+                  class: 'buh-logo-1',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true
+              }}
+            {%- else -%}
+              <img
+                src="{{ 'otw-logo-white.svg' | asset_url }}"
+                loading="lazy"
+                alt="{{ shop.name | escape }}"
+                width="auto"
+                height="auto"
+                class="buh-logo-1"
+              >
+            {%- endif -%}
+          </a>
+          <div class="buh-wrap-7">
+            <div class="buh-text-2">
+              {%- if section.settings.heading != blank -%}
+                {{ section.settings.heading }}
+              {%- endif -%}
+            </div>
+          </div>
+          {%- liquid
+            assign has_social_icons = true
+            if settings.social_facebook_link == blank and settings.social_linkedin_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
+              assign has_social_icons = false
+            endif
+          -%}
+          {%- if section.settings.show_social and has_social_icons -%}
+            <div class="buh-wrap-8">
+              {%- if settings.social_facebook_link != blank -%}
+                <a href="{{ settings.social_facebook_link }}" class="buh-link-block-2 w-inline-block">
+                  <span class="buh-icon-1">{{- 'otw-icon-facebook.svg' | inline_asset_content -}}</span>
+                  <span class="visually-hidden">{{ 'general.social.links.facebook' | t }}</span>
+                </a>
+              {%- endif -%}
+              {%- if settings.social_twitter_link != blank -%}
+                <a href="{{ settings.social_twitter_link }}" class="buh-link-block-2 w-inline-block">
+                  <span class="buh-icon-1 full">{{- 'icon-twitter.svg' | inline_asset_content -}}</span>
+                  <span class="visually-hidden">{{ 'general.social.links.twitter' | t }}</span>
+                </a>
+              {%- endif -%}
+              {%- if settings.social_instagram_link != blank -%}
+                <a href="{{ settings.social_instagram_link }}" class="buh-link-block-2 w-inline-block">
+                  <span class="buh-icon-1">{{- 'otw-icon-instagram.svg' | inline_asset_content -}}</span>
+                  <span class="visually-hidden">{{ 'general.social.links.instagram' | t }}</span>
+                </a>
+              {%- endif -%}
+              {%- if settings.social_linkedin_link != blank -%}
+                <a href="{{ settings.social_linkedin_link }}" class="buh-link-block-2 w-inline-block">
+                  <span class="buh-icon-1">{{- 'otw-icon-linkedin.svg' | inline_asset_content -}}</span>
+                  <span class="visually-hidden">{{ 'general.social.links.linkedin' | t }}</span>
+                </a>
+              {%- endif -%}
+              {%- if settings.social_youtube_link != blank -%}
+                <a href="{{ settings.social_youtube_link }}" class="buh-link-block-2 w-inline-block">
+                  <span class="buh-icon-1">{{- 'otw-icon-youtube.svg' | inline_asset_content -}}</span>
+                  <span class="visually-hidden">{{ 'general.social.links.youtube' | t }}</span>
+                </a>
+              {%- endif -%}
+
+              {%- if settings.social_tiktok_link != blank -%}
+                <a href="{{ settings.social_tiktok_link }}" class="buh-link-block-2 w-inline-block">
+                  <span class="buh-icon-1 full">
+                    {{- 'icon-tiktok.svg' | inline_asset_content -}}
+                  </span>
+                  <span class="visually-hidden">{{ 'general.social.links.tiktok' | t }}</span>
+                </a>
+              {%- endif -%}
+              {%- if settings.social_pinterest_link != blank -%}
+                <a href="{{ settings.social_pinterest_link }}" class="buh-link-block-2 w-inline-block">
+                  <span class="buh-icon-1 full">
+                    {{- 'icon-pinterest.svg' | inline_asset_content -}}
+                  </span>
+                  <span class="visually-hidden">{{ 'general.social.links.pinterest' | t }}</span>
+                </a>
+              {%- endif -%}
+              {%- if settings.social_snapchat_link != blank -%}
+                <a href="{{ settings.social_snapchat_link }}" class="buh-link-block-2 w-inline-block">
+                  <span class="buh-icon-1 full">
+                    {{- 'icon-snapchat.svg' | inline_asset_content -}}
+                  </span>
+                  <span class="visually-hidden">{{ 'general.social.links.snapchat' | t }}</span>
+                </a>
+              {%- endif -%}
+              {%- if settings.social_tumblr_link != blank -%}
+                <a href="{{ settings.social_tumblr_link }}" class="buh-link-block-2 w-inline-block">
+                  <span class="buh-icon-1 full">
+                    {{- 'icon-tumblr.svg' | inline_asset_content -}}
+                  </span>
+                  <span class="visually-hidden">{{ 'general.social.links.tumblr' | t }}</span>
+                </a>
+              {%- endif -%}
+              {%- if settings.social_vimeo_link != blank -%}
+                <a href="{{ settings.social_vimeo_link }}" class="buh-link-block-2 w-inline-block">
+                  <span class="buh-icon-1 full">
+                    {{- 'icon-vimeo.svg' | inline_asset_content -}}
+                  </span>
+                  <span class="visually-hidden">{{ 'general.social.links.vimeo' | t }}</span>
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+        <div class="buh-gris-1">
+          {%- for block in section.blocks -%}
+            <div class="buh-wrap-9">
+              {%- if block.settings.heading != blank -%}
+                <div class="buh-text-3">{{- block.settings.heading -}}</div>
+              {%- endif -%}
+              {%- case block.type -%}
+                {%- when '@app' -%}
+                  {% render block %}
+                {%- when 'link_list' -%}
+                  {%- assign linklist = linklists[block.settings.menu] -%}
+                  {%- if linklist and linklist.links != blank -%}
+                    <div class="buh-wrap-1-1">
+                      {%- for link in linklist.links -%}
+                        <a href="{{ link.url }}" class="buh-link-1">{{ link.title }}</a>
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
+              {%- endcase -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="jus-section-1">
+  <div class="jus-container-1">
+    <div class="jus-wrap-1">
+      <div class="jus-wrap-2">
+        <div class="jus-text-1">{{ 'now' | date: '%Y' }}, {{ shop.name }}. {{ section.settings.copyright_text }}</div>
+        {%- if section.settings.show_policy -%}
+            
+            {%- for policy in shop.policies -%}
+              {%- if policy != blank -%}
+                <a href="{{ policy.url }}" class="jus-link-1">{{ policy.title | escape }}</a>
+                
+                {%- unless forloop.last -%}
+                  <div class="jus-wrap-4"> </div>
+                {%- endunless -%}
+
+              {%- endif -%}
+            {%- endfor -%}
+
+        {%- endif -%}
+
+      </div>
+      <div class="jus-wrap-3">
+        <img src="images/Visa.svg" loading="lazy" alt="" class="jus-icon-1"
+        ><img src="images/Mastercard.svg" loading="lazy" alt="" class="jus-icon-1"
+        ><img src="images/Amex.svg" loading="lazy" alt="" class="jus-icon-1">
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.footer.name",
+  "tag": "footer",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "link_list",
+      "name": "t:sections.footer.blocks.link_list.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "t:sections.footer.blocks.link_list.settings.heading.default",
+          "label": "t:sections.footer.blocks.link_list.settings.heading.label"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "default": "footer",
+          "label": "t:sections.footer.blocks.link_list.settings.menu.label"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.footer.settings.header__1.content",
+      "info": "t:sections.footer.settings.header__1.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "newsletter_enable",
+      "default": true,
+      "label": "t:sections.footer.settings.newsletter_enable.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "newsletter_heading",
+      "default": "t:sections.footer.settings.newsletter_heading.default",
+      "label": "t:sections.footer.settings.newsletter_heading.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "newsletter_subheading",
+      "default": "Join our email list for the latest news and offers",
+      "label": "Subheading"
+    },
+    {
+      "type": "header",
+      "content": "Left Section"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Clean, science-backed supplements designed to fuel focus, strength, and balance for everyday living.",
+      "label": "t:sections.footer.blocks.text.settings.heading.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "default": true,
+      "label": "t:sections.footer.settings.show_social.label",
+      "info": "t:sections.footer.settings.show_social.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.footer.settings.header__9.content"
+    },
+    {
+      "type": "header",
+      "content": "Bottom Section"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "default": "All rights reserved.",
+      "label": "Copyright Text"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "footer",
+      "label": "t:sections.footer.blocks.link_list.settings.menu.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "payment_enable",
+      "default": true,
+      "label": "t:sections.footer.settings.payment_enable.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_policy",
+      "default": true,
+      "label": "t:sections.footer.settings.show_policy.label",
+      "info": "t:sections.footer.settings.show_policy.info"
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "link_list"
+      },
+      {
+        "type": "link_list"
+      },
+      {
+        "type": "link_list"
+      }
+    ]
+  }
+}
+{% endschema %}

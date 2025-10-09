@@ -1,0 +1,52 @@
+
+{% assign subheading = collection.description %}
+{%  if subheading == blank %}
+  {% assign subheading = section.settings.subheading %}
+{% endif %}
+{% render 'otw-text-banner', heading: collection.title, heading_tag: section.settings.heading_tag, subheading: subheading %}
+
+
+{% schema %}
+{
+  "name": "Octra | Collection Banner",
+  "tag": "section",
+  "class": "gig-section-1",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Heading 1"
+        },
+        {
+          "value": "h2",
+          "label": "Heading 2"
+        },
+        {
+          "value": "h3",
+          "label": "Heading 3"
+        }
+      ],
+      "default": "h2",
+      "label": "Heading tag"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Explore our full collection of clean, science-backed supplements—available as single products or bundled for better value."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Octra | Collection Banner",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

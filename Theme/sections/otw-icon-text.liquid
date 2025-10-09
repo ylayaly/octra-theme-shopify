@@ -1,0 +1,113 @@
+<div class="gua-container-1">
+  <div class="gua-wrap-1">
+    {% for block in section.blocks %}
+      <div class="gua-wrap-2" {{ block.shopify_attributes }}>
+        {% if block.settings.icon != blank %}
+          {% render 'otw-image', image: block.settings.icon, class: 'gua-image-1' %}
+        {% elsif block.settings.icon_svg != blank %}
+          <img
+            src="{{ block.settings.icon_svg | asset_url }}"
+            loading="lazy"
+            alt="{{ block.settings.text | escape }}"
+            width="auto"
+            height="auto"
+            class="gua-image-1"
+          >
+        {% endif %}
+        <div class="gua-text-1">{{ block.settings.text | escape }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Octra | Icon Text",
+  "tag": "section",
+  "class": "gua-section-1",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [],
+  "blocks": [
+    {
+      "type": "icon_text",
+      "name": "Icon with Text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon Image",
+          "info": "Upload an icon image (recommended: jpg, jpeg or png)"
+        },
+        {
+          "type": "select",
+          "id": "icon_svg",
+          "label": "Icon SVG",
+          "options": [
+            {
+              "value": "otw-icon-science.svg",
+              "label": "Science"
+            },
+            {
+              "value": "otw-icon-vegan.svg",
+              "label": "Vegan"
+            },
+            {
+              "value": "otw-icon-sugar-free.svg",
+              "label": "Sugar Free"
+            },
+            {
+              "value": "otw-icon-halal-badge.svg",
+              "label": "Halal"
+            }   
+          ],
+          "default": "otw-icon-science.svg"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Feature Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Octra | Icon Text",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "icon_text",
+          "settings": {
+            "icon_svg": "otw-icon-science.svg",
+            "text": "Science Backed"
+          }
+        },
+        {
+          "type": "icon_text",
+          "settings": {
+            "icon_svg": "otw-icon-vegan.svg",
+            "text": "Vegan Friendly"
+          }
+        },
+        {
+          "type": "icon_text",
+          "settings": {
+            "icon_svg": "otw-icon-sugar-free.svg",
+            "text": "Sugar Free"
+          }
+        },
+        {
+          "type": "icon_text",
+          "settings": {
+            "icon_svg": "otw-icon-halal-badge.svg",
+            "text": "Halal"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
