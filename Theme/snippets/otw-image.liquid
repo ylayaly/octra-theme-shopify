@@ -1,0 +1,32 @@
+{% comment %}
+  Render an image with srcset and sizes attributes for responsive images.
+
+  Usage:
+  {% render 'otw-image', image: settings.logo, class: 'sec-logo-1' %}
+{% endcomment %}
+{% comment %}
+  Accepts:
+  - image: {Object}
+  - class: {String} (optional) This can be added so that on page reload it takes you to wherever you've placed your anchor tag.
+{% endcomment %}
+
+{%- if image != blank -%}
+  <img
+    srcset="
+      {%- if image.width >= 165 -%}{{ image | image_url: width: 165 }} 165w,{%- endif -%}
+      {%- if image.width >= 330 -%}{{ image | image_url: width: 330 }} 330w,{%- endif -%}
+      {%- if image.width >= 535 -%}{{ image | image_url: width: 535 }} 535w,{%- endif -%}
+      {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
+      {%- if image.width >= 1000 -%}{{ image | image_url: width: 1000 }} 1000w,{%- endif -%}
+      {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
+      {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
+      {{ image | image_url }} {{ image.width }}w
+    "
+    src="{{ image | image_url: width: 1500 }}"
+    alt="{{ image.alt | escape }}"
+    height="auto"
+    width="auto"
+    loading="lazy"
+    class="{{ class }}"
+  >
+{% endif %}

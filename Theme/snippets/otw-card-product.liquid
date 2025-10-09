@@ -1,0 +1,107 @@
+{% assign product_form_id = 'quick-add-' | append: section_id | append: c_product.id %}
+{% assign bg = '' | split: '' %}
+
+{%- liquid
+  assign list_bg = c_product.metafields.product_card.bg.value
+  for color in list_bg
+    assign cc = color | append: '33'
+    assign cc = cc | split: ','
+    assign bg = bg | concat: cc
+  endfor
+
+  if bg.size == 1
+    assign bg = 'background-color: ' | append: bg[0]
+  elsif bg.size > 1
+    assign bg = bg | join: ','
+    assign bg = 'background-image: linear-gradient(' | append: bg | append: ');'
+  else
+    assign bg = ''
+  endif
+
+  assign featured_image = c_product.featured_media
+  if c_product.metafields.product_card.thumbnail_image.value != blank
+    assign featured_image = c_product.metafields.product_card.thumbnail_image.value
+  endif
+%}
+<article class="{{ class }}">
+  <div class="leo-wrap-4" style="{{ bg }}">
+    <div class="leo-wrap-44">
+      <div class="leo-wrap-5">
+        {% render 'otw-image', image: featured_image, class: 'leo-image-1' %}
+      </div>
+      <div class="leo-wrap-6">
+        <img
+          src="{{ 'otw-icon-stars.svg' | asset_url }}"
+          width="auto"
+          height="auto"
+          loading="{{ lazy_load }}"
+          alt=""
+          class="leo-icons-1"
+        >
+        <h3 class="leo-heading-2">{{ c_product.title | escape }}</h3>
+        <div class="leo-text-1">{{ c_product.description }}</div>
+      </div>
+    </div>
+    <div class="leo-wrap-44">
+      <div class="leo-wrap-6">
+        {% render 'price',
+          product: c_product,
+          show_compare_at_price: show_compare_at_price,
+          price_class: 'leo-text-2'
+        %}
+      </div>
+      <div class="leo-wrap-7">
+        <product-form data-section-id="{{ section.id }}">
+          {%- form 'product',
+            c_product,
+            id: product_form_id,
+            class: 'form',
+            novalidate: 'novalidate',
+            data-type: 'add-to-cart-form'
+          -%}
+            <input
+              type="hidden"
+              name="id"
+              value="{{ c_product.selected_or_first_available_variant.id }}"
+              class="product-variant-id"
+              {% if c_product.selected_or_first_available_variant.available == false %}
+                disabled
+              {% endif %}
+            >
+            <button
+              id="{{ product_form_id }}-submit"
+              type="submit"
+              name="add"
+              class="leo-button-1 w-button quick-add__submit button button--full-width button--secondary{% if horizontal_quick_add %} card--horizontal__quick-add{% endif %}"
+              aria-haspopup="dialog"
+              aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ c_product.id }}"
+              aria-live="polite"
+              data-sold-out-message="true"
+              {% if c_product.selected_or_first_available_variant.available == false %}
+                disabled
+              {% endif %}
+            >
+              <span>
+                {%- if c_product.selected_or_first_available_variant.available -%}
+                  {{ 'products.product.add_to_cart' | t }}
+                {%- else -%}
+                  {{ 'products.product.sold_out' | t }}
+                {%- endif -%}
+              </span>
+              <span class="sold-out-message hidden">
+                {{ 'products.product.sold_out' | t }}
+              </span>
+              {%- if horizontal_quick_add -%}
+                <span class="icon-wrap">
+                  {{- 'icon-plus.svg' | inline_asset_content -}}
+                </span>
+              {%- endif -%}
+              {%- render 'loading-spinner' -%}
+            </button>
+          {%- endform -%}
+        </product-form>
+        <a href="{{ c_product.url }}" class="leo-button-2 w-button">DISCOVER</a>
+      </div>
+    </div>
+  </div>
+</article>

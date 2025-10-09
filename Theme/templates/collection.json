@@ -1,0 +1,37 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "otw-collection-banner",
+      "settings": {
+        "heading_tag": "h1"
+      }
+    },
+    "product-grid": {
+      "type": "otw-collection-product-grid",
+      "settings": {
+        "products_per_page": 16
+      }
+    },
+    "compare": {
+      "type": "otw-section-compare",
+      "settings": {
+        "component": "primary",
+        "heading_tag": "h2"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid",
+    "compare"
+  ]
+}

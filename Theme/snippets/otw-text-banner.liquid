@@ -1,0 +1,14 @@
+<div class="gig-container-1">
+  <div class="gig-wrap-1">
+    <{{ heading_tag }} class="gig-heading-1">
+        {{- heading | escape -}}
+    </{{ heading_tag }}>
+    {% if subheading != blank %}
+    <div class="gig-wrap-2">
+      <div class="gig-text-1">
+        {{ subheading }}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>

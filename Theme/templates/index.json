@@ -1,0 +1,120 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "otw-image-banner",
+      "settings": {
+        "image": "shopify://shop_images/Octragummy_mockup-1.png",
+        "tag": "Rated Excellent",
+        "heading_tag": "h1",
+        "heading": "Fuel Your Mind. Power Your Body.",
+        "subheading": "Effective daily supplements crafted with proven ingredients. Simple routines, powerful results.",
+        "cta_text": "Shop Now",
+        "link": "",
+        "background_gradient": ""
+      }
+    },
+    "icon_text": {
+      "type": "otw-icon-text",
+      "blocks": {
+        "icon_text_ai3UdP": {
+          "type": "icon_text",
+          "settings": {
+            "icon_svg": "otw-icon-science.svg",
+            "text": "Science Backed"
+          }
+        },
+        "icon_text_AiPyi8": {
+          "type": "icon_text",
+          "settings": {
+            "icon_svg": "otw-icon-vegan.svg",
+            "text": "Vegan Friendly"
+          }
+        },
+        "icon_text_yFdLkf": {
+          "type": "icon_text",
+          "settings": {
+            "icon_svg": "otw-icon-sugar-free.svg",
+            "text": "Sugar Free"
+          }
+        },
+        "icon_text_dL9RcK": {
+          "type": "icon_text",
+          "settings": {
+            "icon_svg": "otw-icon-halal-badge.svg",
+            "text": "Halal"
+          }
+        }
+      },
+      "block_order": [
+        "icon_text_ai3UdP",
+        "icon_text_AiPyi8",
+        "icon_text_yFdLkf",
+        "icon_text_dL9RcK"
+      ],
+      "settings": {}
+    },
+    "featured_collection": {
+      "type": "otw-featured-collection",
+      "settings": {
+        "collection": "frontpage",
+        "heading_tag": "h2"
+      }
+    },
+    "cta": {
+      "type": "otw-cta",
+      "settings": {
+        "image": "shopify://shop_images/image-22.png",
+        "heading_tag": "h2",
+        "heading": "Made for Everyone and Every Lifestyle",
+        "content": "From ambitious students to busy professionals, from dedicated gym-goers to those investing in long-term health, Octra is built for every lifestyle. Whether you’re building strength, sharpening focus, or simply supporting daily wellness, our supplements make consistency simple, whatever stage of life you’re in.",
+        "cta_text": "VIEW THE COLLECTION",
+        "link": ""
+      }
+    },
+    "compare": {
+      "type": "otw-section-compare",
+      "settings": {
+        "component": "primary",
+        "heading_tag": "h2"
+      }
+    },
+    "testimonials": {
+      "type": "otw-testimonials-grid",
+      "settings": {
+        "heading_tag": "h2",
+        "heading": "Real People, Real Results.",
+        "subheading": "OCTRA supplements are designed for real life—simple, effective, and enjoyable. But don’t just take our word for it. Here’s what our community has to say.",
+        "testimonials": [
+          "alex-23",
+          "chris-29",
+          "sophie-42"
+        ]
+      }
+    },
+    "faqs": {
+      "type": "otw-faqs",
+      "settings": {
+        "component": "frequently-asked-questions",
+        "heading_tag": "h2"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "icon_text",
+    "featured_collection",
+    "cta",
+    "compare",
+    "testimonials",
+    "faqs"
+  ]
+}

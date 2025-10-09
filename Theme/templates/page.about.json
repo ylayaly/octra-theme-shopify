@@ -1,0 +1,41 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "heading": {
+      "type": "otw-page-banner",
+      "settings": {}
+    },
+    "main": {
+      "type": "otw-main-page",
+      "settings": {}
+    },
+    "text_image": {
+      "type": "otw-section-text-image",
+      "settings": {
+        "text": "<p>Octra was founded by me, Damien, after a personal transformation that changed my life. I used to be unhealthy and overweight, struggling with consistency and balance. Through discipline, fitness, eating well, and taking the right supplements, I rebuilt my body and my lifestyle. Along the way, I realised how complicated the supplement world had become—overloaded with powders, pills, and promises. OCTRA was born to strip it back: simple, effective products that support focus, strength, and wellness every single day.</p>",
+        "image": "shopify://shop_images/Group-1000001648.png"
+      }
+    },
+    "compare": {
+      "type": "otw-section-compare",
+      "settings": {
+        "component": "primary",
+        "heading_tag": "h2"
+      }
+    },
+  },
+  "order": [
+    "heading",
+    "main",
+    "text_image",
+    "compare"
+  ]
+}
