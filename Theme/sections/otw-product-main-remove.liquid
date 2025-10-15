@@ -1,0 +1,309 @@
+{% assign rating = '5.0' %}
+{% if product.metafields.page.rating %}
+  {% assign rating = product.metafields.page.rating.value | split: '.' %}
+{% endif %}
+<style>
+  .def-icons-1 g:nth-child(-n+{{ rating[0] }}) path{
+      fill: #EC5025;
+  }
+</style>
+
+<script src="{{ 'otw-product.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{%- if product.quantity_price_breaks_configured? -%}
+  <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+<div style="display: none;" id="fk-product-collections">
+  {% for item in product.collections %}
+    <span data-url="{{ item.url }}" data-title="{{ item.title }}"></span>
+  {% endfor %}
+</div>
+
+<div class="def-container-1"
+  id="MainProduct-{{ section.id }}"
+  class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
+  data-section="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-update-url="true"
+  data-url="{{ product.url }}"
+>
+  <div class="def-wrap-1">
+    <div class="def-wrap-2">
+      <a href="{{ routes.root_url }}" class="def-link-1">Home</a>
+      <div class="def-text-1">&gt;</div>
+      {% assign first_collection = product.collections.first %}
+      {% if first_collection.title %}
+        <a href="{{ first_collection.url }}" id="fk-product-collection" class="def-link-1">
+          {{- first_collection.title | escape -}}
+        </a>
+        <div class="def-text-1">&gt;</div>
+      {% endif %}
+      <a href="{{ product.url }}" class="def-link-1 line">{{ product.title }}</a>
+    </div>
+    <div class="def-wrap-3">
+      <div class="def-wrap-4">
+        {% render 'otw-product-gallery' %}
+        {% assign accordions = product.metafields.page.accordions.value %}
+        {% if accordions %}
+          <div class="def-wrap-7">
+            {% assign accordions = product.metafields.page.accordions.value %}
+
+            {% for item in accordions %}
+              <div class="def-wrap-4-1">
+                <div otw-toggle class="def-wrap-5-1">
+                  <div class="def-wrap-7-1">
+                    <div class="def-text-1-1">{{ item.heading }}</div>
+                  </div>
+                  <div class="def-wrap-1-3">
+                    <img
+                      src="{{ 'otw-icon-plus.png' | asset_url }}"
+                      width="auto"
+                      height="auto"
+                      loading="lazy"
+                      style="display:block"
+                      alt=""
+                      class="def-icon-3-1"
+                    >
+                    <img
+                      src="{{ 'otw-icon-minus.svg' | asset_url }}"
+                      width="auto"
+                      height="auto"
+                      loading="lazy"
+                      alt=""
+                      class="def-icon-4-1"
+                    >
+                  </div>
+                </div>
+                <div class="def-wrap-6-1">
+                  <div class="def-rich-text-1 w-richtext">
+                    {{ item.content | metafield_tag }}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      <div class="def-wrap-5" id="ProductInfo-{{ section.id }}">
+        {%- assign product_form_id = 'product-form-' | append: section.id -%}
+        <div class="def-wrap-9">
+          <div class="def-text-2">Rated Excellent</div>
+          <div class="def-icons-1">
+            {{- 'otw-icon-stars.svg' | inline_asset_content -}}
+          </div>
+        </div>
+        <div class="def-wrap-1-1">
+          <h1 class="def-heading-1">{{ product.title | escape }}</h1>
+          <div class="def-wrap-1-5">
+            <div class="def-text-4">120 Gummies - One month supply</div>
+          </div>
+          {% render 'otw-product-variant-picker', product: product, swatch_shape: 'none', product_form_id: product_form_id %}
+          <div class="def-text-3">
+            {{ product.description }}
+          </div>
+        </div>
+        {% comment %}
+          <div class="def-wrap-6-2">
+            <div
+              data-current="Tab 7"
+              data-easing="ease"
+              data-duration-in="300"
+              data-duration-out="100"
+              class="def-tabs-1 w-tabs"
+            >
+              <div class="def-tabs-menu-1 w-tab-menu">
+                <a data-w-tab="Tab 1" class="def-tab-link-1 w-inline-block w-tab-link"
+                  ><img src="images/img-thumb-2.png" loading="lazy" alt="" class="def-image-2"
+                ></a>
+                <a data-w-tab="Tab 7" class="def-tab-link-1 w-inline-block w-tab-link w--current"
+                  ><img
+                    src="images/Group-1000001648-1.png"
+                    loading="lazy"
+                    sizes="(max-width: 479px) 100vw, (max-width: 991px) 92vw, 738px"
+                    srcset="images/Group-1000001648-1-p-500.png 500w, images/Group-1000001648-1.png 738w"
+                    alt=""
+                    class="def-image-2"
+                ></a>
+                <a data-w-tab="Tab 8" class="def-tab-link-1 w-inline-block w-tab-link"
+                  ><img
+                    src="images/Image-38.png"
+                    loading="lazy"
+                    sizes="(max-width: 479px) 100vw, (max-width: 767px) 92vw, (max-width: 991px) 94vw, (max-width: 1279px) 95vw, (max-width: 1666px) 96vw, 1600px"
+                    srcset="images/Image-38-p-500.png 500w, images/Image-38-p-800.png 800w, images/Image-38-p-1080.png 1080w, images/Image-38.png 1600w"
+                    alt=""
+                    class="def-image-2"
+                ></a>
+                <a data-w-tab="Tab 9" class="def-tab-link-1 w-inline-block w-tab-link"
+                  ><img src="images/img-thumb-2.png" loading="lazy" alt="" class="def-image-2"
+                ></a>
+              </div>
+              <div class="def-tabs-content-1 w-tab-content">
+                <div data-w-tab="Tab 1" class="def-tabs-content-3 w-tab-pane">
+                  <img src="images/img-thumb-2.png" loading="lazy" alt="" class="def-image-3">
+                </div>
+                <div data-w-tab="Tab 7" class="def-tabs-content-3 w-tab-pane w--tab-active">
+                  <img src="images/Frame-1000001597.svg" loading="lazy" alt="" class="def-image-3">
+                </div>
+                <div data-w-tab="Tab 8" class="def-tabs-content-3 w-tab-pane">
+                  <img src="images/Frame-1000001595.svg" loading="lazy" alt="" class="def-image-3">
+                </div>
+                <div data-w-tab="Tab 9" class="def-tabs-content-3 w-tab-pane">
+                  <img src="images/img-thumb-2.png" loading="lazy" alt="" class="def-image-3">
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endcomment %}
+        {% render 'otw-product-gallery', class: 'def-wrap-6-2' %}
+        <div class="def-grid-1">
+          {% assign benefits = product.metafields.page.benefits.value %}
+
+          {% for benefit in benefits %}
+            <div class="def-wrap-1-2">
+              {% render 'otw-image', image: benefit.icon, class: 'def-icon-2' %}
+              <div class="def-text-5">{{ benefit.text }}</div>
+            </div>
+          {% endfor %}
+        </div>
+
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when '@app' -%}
+              {% render block %}
+          {%- endcase -%}
+        {%- endfor -%}
+        <div class="def-wrap-1-4">
+          <div class="def-wrap-1-6">
+            <div class="def-wrap-2-4">
+              <div class="def-wrap-2-6">
+                <div class="def-icon-5"></div>
+                <div class="def-text-1-2">One-Time Purchase</div>
+              </div>
+              <div class="def-wrap-2-7">
+                <div class="def-text-9">£22.99</div>
+              </div>
+            </div>
+            <div class="def-wrap-2-5">
+              <div class="def-wrap-2-8">
+                <div class="def-wrap-3-2">
+                  <div class="def-icon-5-1">
+                    <div class="def-icon-6"></div>
+                  </div>
+                  <div class="def-text-1-2">Subscribe &amp; Save</div>
+                  <a href="#" class="def-button-1 w-button">Save 15%</a>
+                </div>
+                <div class="def-wrap-3-3">
+                  <div class="def-text-9">£19.49</div>
+                </div>
+              </div>
+              <div class="def-wrap-2-9">
+                <div data-hover="false" data-delay="0" class="def-dropdown-1 w-dropdown">
+                  <div class="def-toggle-1 w-dropdown-toggle">
+                    <div class="def-icon-123 w-icon-dropdown-toggle"></div>
+                    <div class="def-text-1-4">Delivery <span class="def-span-2">every 1 month</span></div>
+                  </div>
+                  <nav class="def-list-2 w-dropdown-list">
+                    <div class="def-wrap-3-4">
+                      <div class="def-toggle-2">
+                        <div class="def-text-1-3">Option 1</div>
+                      </div>
+                      <div class="def-toggle-2">
+                        <div class="def-text-1-3">Option 1</div>
+                      </div>
+                      <div class="def-toggle-2">
+                        <div class="def-text-1-3">Option 1</div>
+                      </div>
+                    </div>
+                  </nav>
+                </div>
+              </div>
+              <div class="def-wrap-3-1">
+                <div class="def-text-1-5">• Free to pause or cancel anytime</div>
+                <div class="def-text-1-5">• Save with every recurring delivery</div>
+                <div class="def-text-1-5">• Access to exclusive flavors</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="def-wrap-1-7">
+            <div style="display:none">
+              {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
+              {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                {{ form | payment_terms }}
+              {%- endform -%}
+            </div>
+            {% render 'otw-quantity-selector', product: product, section: section, settings: settings %}
+            {%- render 'buy-buttons',
+              block: section,
+              product: product,
+              product_form_id: product_form_id,
+              section_id: section.id,
+              show_pickup_availability: true,
+              show_gift_card_recipient: section.settings.show_gift_card_recipient
+            -%}
+            <a href="#" class="def-link-block-1 w-inline-block">
+              <div class="def-wrap-2-3">
+                <div class="def-text-8">Add to Cart - <span class="def-span-1">£22.99</span> £19.49</div>
+                <img src="images/Line-15.png" loading="lazy" alt="" class="image-2">
+                <div class="def-text-8-1">£22.99 £19.49</div>
+                <div class="def-text-8-2">£19.49</div>
+              </div>
+              <img src="images/Vector-5.svg" loading="lazy" alt="" class="def-icon-4">
+            </a>
+          </div>
+          <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+            {%- render 'price', product: product, use_variant: true, show_badges: true, price_class: 'price--large' -%}
+          </div>
+          <div class="def-wrap-1-8">
+            {% assign features = product.metafields.custom.page_features.value %}
+
+            {% for feature in features %}
+              <div class="def-wrap-1-9">
+                {% render 'otw-image', image: feature.icon, class: 'def-icon-3' %}
+                <div class="def-text-6">{{ feature.text }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      <script type="application/ld+json">
+      {{ product | structured_data }}
+    </script>
+</div>
+
+{% schema %}
+{
+  "name": "Octra | Product Page Main",
+  "tag": "section",
+  "class": "def-section-1",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_gift_card_recipient",
+      "default": true,
+      "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
+      "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Octra | Product Page - Main",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

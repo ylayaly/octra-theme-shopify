@@ -1,0 +1,42 @@
+{% assign heading = product.metafields.page.no_extras_heading %}
+{% assign text = product.metafields.page.no_extras_text %}
+{% assign items = product.metafields.page.no_extras_items %}
+
+{% if heading or text %}
+  <div class="ext-container-1">
+    <div class="ext-wrap-1">
+      <div class="ext-wrap-2">
+        <h2 class="ext-heading-1">{{ heading }}</h2>
+        <div class="ext-paragraph-1">
+          {{ text | metafield_tag }}
+        </div>
+      </div>
+      <div class="ext-wrap-3">
+        {% for item in items.value %}
+          <div class="sat-wrap-2">
+            <img src="{{ 'otw-icon-uncheck.png' | asset_url }}" loading="lazy" width="auto" height="auto" alt="" class="sat-icon-1">
+            <div class="sat-text-2">{{ item }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Octra | Product Extras",
+  "tag": "section",
+  "class": "ext-section-1",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [],
+  "presets": [
+    {
+      "name": "Octra | Product Page - No Extras",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

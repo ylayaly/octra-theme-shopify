@@ -2,26 +2,22 @@
   Renders product buy-buttons.
   Accepts:
   - product: {Object} product object.
-  - block: {Object} passing the block information.
   - product_form_id: {String} product form id.
   - section_id: {String} id of section to which this snippet belongs.
   - show_pickup_availability: {Boolean} for the pickup availability. If true the pickup availability is rendered, false - not rendered (optional).
 
   Usage:
-  {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
+  {% render 'buy-buttons', product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true, show_gift_card_recipient: true %}
 {% endcomment %}
-<div {{ block.shopify_attributes }}>
+<div>
   {%- if product != blank -%}
     {%- liquid
       assign gift_card_recipient_feature_active = false
-      if block.settings.show_gift_card_recipient and product.gift_card?
+      if show_gift_card_recipient and product.gift_card?
         assign gift_card_recipient_feature_active = true
       endif
 
       assign show_dynamic_checkout = false
-      if block.settings.show_dynamic_checkout and gift_card_recipient_feature_active == false
-        assign show_dynamic_checkout = true
-      endif
     -%}
 
     <product-form
@@ -82,7 +78,7 @@
               disabled
             {% endif %}
           >
-            <span data-otw-info>
+            <span>
               {%- if product.selected_or_first_available_variant == null -%}
                 {{ 'products.product.unavailable' | t }}
               {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
@@ -90,11 +86,6 @@
               {%- else -%}
                 {{ 'products.product.add_to_cart' | t }}
               {%- endif -%}
-              {% if show_price -%}
-                - 
-                <span class="product-selling-price def-span-1" id="productVariantPrice"><i></i></span>
-                <span class="product-price" id="productFinalyPrice">{{ product.selected_or_first_available_variant.price | money }}</span>
-              {% endif %}
             </span>
             {%- render 'loading-spinner' -%}
           </button>

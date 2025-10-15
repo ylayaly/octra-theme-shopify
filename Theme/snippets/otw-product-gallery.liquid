@@ -1,0 +1,82 @@
+{% assign images = product.images | concat: product.images %}
+{% assign last_item = images.last %}
+<style>
+  [data-otw-carousel="{{ section.id }}"] {
+    --projectsLength: {{ product.images.size | minus: 1 }};
+    --cardWidth: 9em;
+  }
+
+  @media screen and (max-width: 1540px) {
+    [data-otw-carousel="{{ section.id }}"] {
+      --cardWidth: 9em;
+    }
+  }
+
+  @media screen and (max-width: 1440px) {
+    [data-otw-carousel="{{ section.id }}"] {
+      --cardWidth: 8.5em;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    [data-otw-carousel="{{ section.id }}"] {
+      --cardWidth: 6.5em;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    [data-otw-carousel="{{ section.id }}"] {
+      --cardWidth: 10em;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    [data-otw-carousel="{{ section.id }}"] {
+      --cardWidth: 11em;
+    }
+  }
+
+  .def-tabs-menu-1{
+    display: flex;
+    
+  }
+</style>
+
+<div class="def-wrap-6-3 {{ class }}" data-otw-carousel="{{ section.id }}" data-otw-items="{{ product.images.size  }}">
+  <div class="def-tabs-1 w-tabs" data-current="Tab 1" data-easing="ease" data-duration-in="300" data-duration-out="100" data-otw-carousel_container>
+    <div class="def-tabs-content-1 w-tab-content">
+        <div data-w-tab="Tab 0" class="def-tabs-content-3 w-tab-pane">
+            <img loading="lazy" width="auto" height="auto" src="{{ last_item | image_url }}" alt="{{ last_item.alt | escape }}" class="def-image-3">
+        </div>
+        {% for item in images %}
+        <div data-w-tab="Tab {{ forloop.index }}" class="def-tabs-content-3 w-tab-pane {% if forloop.first %}w--tab-active{% endif %}">
+            <img loading="lazy" width="auto" height="auto" src="{{ item | image_url }}" alt="{{ item.alt | escape }}" class="def-image-3">
+        </div>
+        {% endfor %}
+    </div>
+    <div class="def-tabs-menu-1 w-tab-menu" data-otw-carousel_wrapper>
+        <a data-w-tab="Tab 0" class="def-tab-link-1 w-inline-block w-tab-link">
+            <img loading="lazy" width="auto" height="auto" src="{{ last_item | image_url }}" alt="{{ last_item.alt | escape }}" class="def-image-2">
+        </a>
+        {%  for item in images %}
+        <a data-w-tab="Tab {{ forloop.index }}" class="def-tab-link-1 w-inline-block w-tab-link {% if forloop.first %}w--current{% endif %}">
+            <img loading="lazy" width="auto" height="auto" src="{{ item | image_url }}" alt="{{ item.alt | escape }}" class="def-image-2">
+        </a>
+        {% endfor %}
+    </div>
+    
+
+  </div>
+
+  <button data-otw-carousel_action="left">
+    <span class="svg-wrapper">
+        {{- 'icon-caret.svg' | inline_asset_content -}}
+    </span>
+  </button>
+  <button data-otw-carousel_action="right">
+    <span class="svg-wrapper">
+        {{- 'icon-caret.svg' | inline_asset_content -}}
+    </span>
+  </button>
+  
+</div>

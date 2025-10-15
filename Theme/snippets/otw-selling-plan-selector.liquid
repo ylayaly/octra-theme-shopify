@@ -1,0 +1,154 @@
+{%- assign current_variant = product.selected_or_first_available_variant | default: product.variants.first -%}
+
+{% if product.selling_plan_groups.size > 0 %}
+  <div class="selling_plan_app_container" data-section-id="{{ section.id }}">
+    <style>
+      .selling_plan_theme_integration--hidden {
+        display: none;
+      }
+    </style>
+    {% for variant in product.variants %}
+      {% liquid
+        assign variant_price = variant.price | money | escape
+        assign variant_compared_at_price = variant.compare_at_price | money | escape
+      %}
+      {% if variant.selling_plan_allocations.size > 0 %}
+        <section
+          data-otw-variant-id="{{ variant.id }}"
+          class="def-wrap-1-6 selling_plan_theme_integration {% if variant.id != current_variant.id %}selling_plan_theme_integration--hidden{% endif %}"
+        >
+          <fieldset>
+            <legend>
+              {{ block.settings.supporting_text_title }}
+            </legend>
+            <div>
+              {% unless product.requires_selling_plan %}
+                <div>
+                  <label class="def-wrap-2-4">
+                    <span class="def-wrap-2-6">
+                      <input
+                        data-clone
+                        aria-label="One-time purchase. Product price {{ variant_price }}"
+                        type="radio"
+                        name="purchaseOption_{{ section.id }}_{{ variant.id }}_clone"
+                        {% if variant.available == false %}
+                          disabled
+                        {% endif %}
+                        id="{{ section.id }}_one_time_purchase"
+                        data-radio-type="one_time_purchase"
+                        data-variant-id="{{ variant.id }}"
+                        data-variant-price="{{ variant_price }}"
+                        data-variant-compare-at-price="{{ variant_compared_at_price }}"
+                        checked
+                      >
+                      <div class="def-icon-5"> </div>
+                      <span class="def-text-1-2">One-time purchase</span>
+                    </span>
+                    <div class="def-wrap-2-7">
+                      <div class="def-text-9" >{{ variant_price }}</div>
+                    </div>
+                  </label>
+                </div>
+              {% endunless %}
+              {% assign group_ids = variant.selling_plan_allocations | map: 'selling_plan_group_id' | uniq %}
+              {% for group_id in group_ids %}
+                {% liquid
+                  assign group = product | map: 'selling_plan_groups' | where: 'id', group_id | first
+                  assign allocations = variant | map: 'selling_plan_allocations' | where: 'selling_plan_group_id', group_id
+
+                  if forloop.first
+                    assign first_selling_plan_group = true
+                  else
+                    assign first_selling_plan_group = false
+                  endif
+                %}
+                {% assign first_allocation = allocations.first %}
+                {% assign allocation_price = first_allocation.price | money | escape %}
+                {% assign allocation_compared_at_price = first_allocation.compare_at_price | money | escape %}
+                {% assign allocation_discounted_price = first_allocation.selling_plan.name | split: ',' | last %}
+                {% assign allocation_name = first_allocation.selling_plan.name | split: ',' | first %}
+                {% assign allocation_prefix = allocation_name | split: ' ' | first %}
+                {% assign allocation_name = allocation_name | remove: allocation_prefix | strip %}
+
+                <div class="def-wrap-2-5" data-dropdown-wrapper>
+                  <div class="def-wrap-2-8">
+                    <div class="def-wrap-3-2" data-otw-dropdown-button>
+                      <div class="def-icon-5-1">
+                        <div class="def-icon-6"> </div>
+                      </div>
+                      <label class="def-text-1-2">{{ group.name }}</label>
+                      <span class="def-button-1 w-button" data-selling-plan-discounted-price>{{ allocation_discounted_price }}</span>
+                    </div>
+                    <div class="def-wrap-3-3">
+                      <div class="def-text-9" data-selling-plan-price>{{ allocation_price }}</div>
+                    </div>
+                  </div>
+                  <div class="def-wrap-2-9">
+                    <div class="def-dropdown-1">
+                      <div class="def-toggle-1" data-otw-dropdown-button>
+                        <div class="def-icon-123 w-icon-dropdown-toggle"></div>
+                        <div class="def-text-1-4" id="selling-plan-selected_{{ variant.id }}">Select one</div>
+                      </div>
+                      <nav class="def-list-2" data-otw-dropdown-list>
+                        <div class="def-wrap-3-4">
+                          {% for allocation in allocations %}
+                            {% liquid
+                              if forloop.first and product.requires_selling_plan and first_selling_plan_group
+                                assign plan_checked = 'checked'
+                              else
+                                assign plan_checked = null
+                              endif
+
+                              assign allocation_price = allocation.price | money | escape
+                              assign allocation_compared_at_price = allocation.compare_at_price | money | escape
+                            %}
+
+                            {% assign allocation_discounted_price = allocation.selling_plan.name | split: ',' | last %}
+                            {% assign allocation_name = allocation.selling_plan.name | split: ',' | first %}
+                            {% assign allocation_prefix = allocation_name | split: ' ' | first %}
+                            {% assign allocation_name = allocation_name | remove: allocation_prefix | strip %}
+
+                            <div class="def-toggle-2">
+                              <label class="def-text-1-3">
+                                <input
+                                  type="radio"
+                                  data-clone
+                                  {% if variant.available == false %}
+                                    disabled
+                                  {% endif %}
+                                  aria-label="{{ allocation.selling_plan.name }}. Product price {{ allocation_price }}"
+                                  name="purchaseOption_{{ section.id }}_{{ variant.id }}_clone"
+                                  data-radio-type="selling_plan"
+                                  data-selling-plan-id="{{ allocation.selling_plan.id }}"
+                                  data-selling-plan-group-id="{{ section.id }}_{{ group_id }}_{{ variant.id }}"
+                                  data-selling-plan-adjustment="{{ allocation.selling_plan.price_adjustments.size }}"
+                                  data-variant-price="{{ allocation_price }}"
+                                  data-variant-compare-at-price="{{ allocation_compared_at_price }}"
+                                  value="{{ allocation.selling_plan.id }}"
+                                  data-allocation_discounted_price="{{ allocation_discounted_price }}"
+                                  data-variant-id="{{ variant.id }}"
+                                  {{ plan_checked }}
+                                >
+                                <span class="def-text-1-33">{{ allocation_prefix }} <span class="def-span-2">{{ allocation_name }}</span></span>
+                              </label>
+                            </div>
+                          {% endfor %}
+                        </div>
+                      </nav>
+                    </div>
+                  </div>
+                  <ul></ul>
+                  <div class="def-wrap-3-1">
+                    <div class="def-text-1-5">• Free to pause or cancel anytime</div>
+                    <div class="def-text-1-5">• Save with every recurring delivery</div>
+                    <div class="def-text-1-5">• Access to exclusive flavors</div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </fieldset>
+        </section>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}

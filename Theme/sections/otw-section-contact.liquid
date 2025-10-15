@@ -1,0 +1,120 @@
+<div class="gun-container-1">
+  <div class="gun-wrap-1">
+    {% if page.content %}
+      <div class="gun-wrap-2">
+        <div class="gun-text-1">
+          {{ page.content }}
+        </div>
+      </div>
+    {% endif %}
+    <div class="gun-wrap-3">
+      {%- form 'contact', id: 'ContactForm', class: 'gun-form-block-1 w-form' -%}
+        <div
+          id="email-form-2"
+          name="email-form-2"
+          data-name="Email Form 2"
+          method="get"
+            class="gun-form-1"
+            data-wf-page-id="68dd994a9a8e75f2db1722e2"
+            data-wf-element-id="e1c498bc-dab7-cff6-82aa-c3fd0a393697"
+          >
+            <div class="gun-wrap-4">
+              <div class="gun-wrap-5">
+                <div class="gun-text-2">Your name</div>
+                <input
+                  class="gun-input-1 w-input"
+                  maxlength="256"
+                  name="contact[{{ 'templates.contact.form.name' | t }}]"
+                  value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                  placeholder="{{ 'templates.contact.form.name' | t }}"
+                  type="text"
+                  id="ContactForm-name"
+                  required=""
+                  autocomplete="name"
+                >
+              </div>
+              <div class="gun-wrap-5">
+                <div class="gun-text-2">Email address</div>
+                <input
+                    class="gun-input-1 w-input {%- if form.errors contains 'email' -%} input--error {%- endif -%}"
+                    maxlength="256"
+                    placeholder="Abc@def.com"
+                    autocomplete="email"
+                    type="email"
+                    id="ContactForm-email"
+                    required=""
+                    name="contact[email]"
+                    spellcheck="false"
+                    autocapitalize="off"
+                    value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                    aria-required="true"
+                    {% if form.errors contains 'email' %}
+                    aria-invalid="true"
+                    aria-describedby="ContactForm-email-error"
+                    {% endif %}
+                >
+              </div>
+              <div class="gun-wrap-5">
+                <div class="gun-text-2">Subject</div>
+                <input
+                  class="gun-input-1 w-input"
+                  maxlength="256"
+                  name="contact[subject]"
+                  placeholder="This is an optional"
+                  type="text"
+                  id="ContactForm-subject"
+                  required=""
+                >
+              </div>
+              <div class="gun-wrap-5">
+                <div class="gun-text-2">Message</div>
+                <div class="div-block">
+                  <textarea
+                    placeholder="Hi! i’d like to ask about"
+                    maxlength="5000"
+                    id="ContactForm-body"
+                    name="contact[{{ 'templates.contact.form.comment' | t }}]"
+                    class="gun-textarea-1 w-input"
+                  >
+                    {{- form.body -}}
+                </textarea>
+                </div>
+              </div>
+              <div class="gun-wrap-6">
+                <button type="submit" class="gun-button-1 w-button">SEND MESSAGE</button>
+              </div>
+            </div>
+          </div>
+
+
+        {%- if form.posted_successfully? -%}
+            <div class="w-form-done" tabindex="-1" autofocus>
+                <div>{{ 'templates.contact.form.post_success' | t }}</div>
+            </div>
+        {%- elsif form.errors -%}
+            <div class="w-form-fail" role="alert" tabindex="-1" autofocus>
+                <div>{{ 'templates.contact.form.error_heading' | t }}</div>
+                <ul class="form-status-list caption-large" role="list">
+                    <li>
+                        <a href="#ContactForm-email" class="link">
+                        {{ form.errors.translated_fields.email | capitalize }}
+                        {{ form.errors.messages.email }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        {%- endif -%}
+        
+      {%- endform -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-page.name",
+  "tag": "section",
+  "class": "gun-section-1",
+  "settings": []
+}
+{% endschema %}

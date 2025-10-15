@@ -1,14 +1,16 @@
 {
   "sections": {
+    "heading": {
+      "type": "otw-page-banner",
+      "settings": {}
+    },
     "main": {
-      "type": "main-page",
-      "settings": {
-        "padding_top": 28,
-        "padding_bottom": 28
-      }
+      "type": "otw-main-page",
+      "settings": {}
     }
   },
   "order": [
+    "heading",
     "main"
   ]
 }

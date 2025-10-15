@@ -22,6 +22,7 @@
             {%- if testimonial.testimonial != blank -%}
               <div class="nom-text-2">“{{ testimonial.testimonial }}”</div>
             {%- endif -%}
+            <img src="{{ 'otw-icon-stars.svg' | asset_url }}" loading="lazy" width="auto" height="auto" alt="" class="nom-icons-1">
             {%- if testimonial.author != blank -%}
               <div class="nom-text-3">
                 {{ testimonial.author }}

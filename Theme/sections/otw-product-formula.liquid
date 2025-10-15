@@ -1,0 +1,60 @@
+{% assign heading = product.metafields.page.formula_heading %}
+{% assign image = product.metafields.custom.page_formula_image %}
+{% assign items = product.metafields.page.formula_items %}
+
+{% if heading or items %}
+    {% assign size = items.value | size | modulo : 2 %}
+    {%  if size != 0 %}
+    {% assign size = items.value | size | plus: 1 %}
+    {% else %}
+    {% assign size = items.value | size %}
+    {% endif %}
+<style>
+    .mol-wrap-4 {
+        grid-row-end: span {{ size | divided_by: 2 | ceil }};
+    }
+</style>
+  <div class="mol-container-1">
+    <div class="mol-wrap-1">
+      <div class="mol-wrap-2">
+        <h2 class="mol-heading-1">{{ heading }}</h2>
+      </div>
+      <div class="mol-grid-1">
+        <div class="mol-wrap-4">
+          {% render 'otw-image', image: image, class: 'mol-image-1' %}
+        </div>
+        {% for item in items.value %}
+          <div class="mol-wrap-3">
+            <div class="mol-wrap-5">
+              {% render 'otw-image', image: item.icon, class: 'mol-icon-1' %}
+            </div>
+            <div class="mol-wrap-6">
+              <h3 class="mol-heading-2">{{ item.heading }}</h3>
+            </div>
+            <div class="mol-wrap-7">
+              <div class="mol-text-1">{{ item.text | metafield_tag }}</div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Octra | Product Formula",
+  "tag": "section",
+  "class": "mol-section-1",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [],
+  "presets": [
+    {
+      "name": "Octra | Product Page - Formula",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

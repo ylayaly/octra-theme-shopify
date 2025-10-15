@@ -18,8 +18,7 @@
         "heading": "Fuel Your Mind. Power Your Body.",
         "subheading": "Effective daily supplements crafted with proven ingredients. Simple routines, powerful results.",
         "cta_text": "Shop Now",
-        "link": "",
-        "background_gradient": ""
+        "link": ""
       }
     },
     "icon_text": {
@@ -101,7 +100,7 @@
       }
     },
     "faqs": {
-      "type": "otw-faqs",
+      "type": "otw-section-faqs",
       "settings": {
         "component": "frequently-asked-questions",
         "heading_tag": "h2"

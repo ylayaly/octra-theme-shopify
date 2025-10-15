@@ -1,97 +1,42 @@
-{% comment %}
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css"
-    integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  >
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css"
-    integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  >
-
-  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"
-    integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-    defer="defer"
-  ></script>
-{% endcomment %}
 <style>
-  :root {
-    --translateX: -100%;
-    --transitionDuration: 300ms;
+  [data-otw-carousel="{{ section.id }}"] {
     --projectsLength: {{ section.settings.collection.products.size | minus: 1 }};
     --cardWidth: 34em;
   }
 
-  .leo-wrap-3 {
-    grid-column-gap: 0px;
-    transform: translateX(-1em);
-  }
-
-  .leo-wrap-3_container {
-    overflow-x: hidden;
-    width: calc((var(--projectsLength) + 1) * var(--cardWidth));
-    flex-shrink: 0;
-  }
-
-  .leo-wrap-3 > article {
-    flex-shrink: 0;
-    width: var(--cardWidth);
-    transition: transform var(--transitionDuration);
-    transform: translateX(var(--translateX));
-    padding: 0px 1em;
-    order: 20;
-
-    & > div {
-      height: 100%;
-    }
-  }
-
-  .clone {
-    order: 30 !important;
-
-    &:first-child {
-      order: 0 !important;
-    }
-  }
-
   @media screen and (max-width: 1540px) {
-    :root {
+    [data-otw-carousel="{{ section.id }}"] {
       --cardWidth: 30.5vw;
     }
   }
 
     @media screen and (max-width: 991px) {
-    :root {
+    [data-otw-carousel="{{ section.id }}"] {
       --cardWidth: 45vw;
     }
   }
 
     @media screen and (max-width: 479px) {
-    :root {
+    [data-otw-carousel="{{ section.id }}"] {
       --cardWidth: 85vw;
     }
   }
 </style>
+
+
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
 {%- liquid
   assign featured_collection = section.settings.collection | default: collections.first
 %}
-<div class="leo-container-1">
+<div class="leo-container-1" data-otw-carousel="{{ section.id }}" data-otw-items="{{ section.settings.collection.products.size }}">
   <div class="leo-wrap-1">
     <{{ section.settings.heading_tag }} class="leo-heading-1">
       {{- featured_collection.title | escape -}}
     </{{ section.settings.heading_tag }}>
     <div class="leo-wrap-2">
-      <div class="leo-wrap-3_container">
-        <div class="leo-wrap-3">
+      <div class="leo-wrap-3_container" data-otw-carousel_wrapper>
+        <div class="leo-wrap-3" data-otw-carousel_container>
           {%- if section.settings.collection.products.size > 0 -%}
             {% assign lazy_load = false %}
             {% render 'otw-card-product',
@@ -131,7 +76,7 @@
       </div>
     </div>
     <div class="leo-wrap-absolute-1">
-      <div class="leo-wrap-8" data-action="right">
+      <div class="leo-wrap-8" data-otw-carousel_action="right">
         <img
           src="{{ 'otw-icon-arrow-2.png' | asset_url }}"
           loading="lazy"
@@ -144,77 +89,6 @@
     </div>
   </div>
 </div>
-
-
-<script type="module">
-    var r = document.querySelector(':root');
-    const cardWidth = 100;
-    const transitionDuration = 300;
-    let projectsLength = {{ section.settings.collection.products.size | minus: 1 }};
-    let isAnimating = false;
-    let translateX = -100;
-
-    const setTranslateX = (value) => {
-        r.style.setProperty('--translateX', value + '%');
-    }
-
-    const setTransitionDuration = (value) => {
-        r.style.setProperty('--transitionDuration', value + 'ms');
-    }
-    const goToRight = () => {
-        if (!isAnimating) {
-            isAnimating = true;
-
-            const newTranslateX = translateX - cardWidth;
-
-            if (Math.abs(newTranslateX) > ((projectsLength + 1) * cardWidth)) {
-                setTranslateX(newTranslateX);
-
-                setTimeout(() => {
-                    translateX = -100;
-                    
-                    setTransitionDuration(0);
-                    setTranslateX(translateX);
-                    setTimeout(() => {
-                        isAnimating = false;
-                        setTransitionDuration(transitionDuration);
-                    }, transitionDuration);
-                }, transitionDuration);
-
-            } else {
-                translateX = newTranslateX;
-                setTranslateX(translateX);
-                setTimeout(() => {
-                    isAnimating = false;
-                }, transitionDuration);
-            }
-        }
-    }
-    const rightButton = document.querySelector('[data-action="right"]');
-    rightButton.addEventListener('click', goToRight);
-
-    let touchstartX = 0
-    let touchendX = 0
-
-    function checkDirection() {
-        const width = $(window).width();
-        if (width >= 992) return;
-        const diff = Math.abs(touchendX - touchstartX);
-        if (diff < 50) return;
-        if (touchendX < touchstartX) goToRight();
-        if (touchendX > touchstartX) goToLeft();
-    }
-
-    $(".leo-wrap-3").on('touchstart', e => {
-        touchstartX = e.changedTouches[0].screenX
-    })
-
-    $(".leo-wrap-3").on('touchend', e => {
-        touchendX = e.changedTouches[0].screenX
-        checkDirection()
-    })
-</script>
-
 
 {% schema %}
 {

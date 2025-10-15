@@ -1,0 +1,41 @@
+{% assign testimonial = product.metafields.page.testimonial.value %}
+{% if testimonial != blank %}
+  {% assign rating = testimonial.stars.value | split: '.' %}
+  <style>
+    #rom-container__{{ section.id }} .rom-icons-1 g:nth-child(-n+{{ rating[0] }}) path{
+        fill: #EC5025;
+    }
+  </style>
+  <div class="rom-container-1" id="rom-container__{{ section.id }}">
+    <div class="rom-wrap-1">
+      <div class="rom-wrap-2">
+        <p class="rom-paragraph-2">{{ testimonial.testimonial }}</p>
+        <div class="rom-text-1">{{ testimonial.author }}</div>
+        <div class="rom-icons-1">
+          {{- 'otw-icon-stars.svg' | inline_asset_content -}}
+        </div>
+      </div>
+      <div class="rom-wrap-3">
+        {% render 'otw-image', image: testimonial.image, class: 'rom-image-1' %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Octra | ProTestimonial",
+  "tag": "section",
+  "class": "rom-section-2",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [],
+  "presets": [
+    {
+      "name": "Octra | Product Testimonial",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
