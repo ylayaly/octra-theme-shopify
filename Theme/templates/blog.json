@@ -1,7 +1,12 @@
 {
   "sections": {
+    "heading": {
+      "type": "otw-blog-banner",
+      "settings": {
+      }
+    },
     "main": {
-      "type": "main-blog",
+      "type": "otw-blog",
       "settings": {
         "layout": "collage",
         "show_image": true,
@@ -14,6 +19,7 @@
     }
   },
   "order": [
+    "heading",
     "main"
   ]
 }

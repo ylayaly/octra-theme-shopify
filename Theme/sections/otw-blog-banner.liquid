@@ -1,0 +1,23 @@
+
+{% assign subheading = blog.metafields.page.description %}
+{% render 'otw-text-banner', heading: blog.title, heading_tag: 'h1', subheading: subheading %}
+
+
+{% schema %}
+{
+  "name": "Octra | Blog Banner",
+  "tag": "section",
+  "class": "gig-section-1",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+  ],
+  "presets": [
+    {
+      "name": "Octra | Blog Banner",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

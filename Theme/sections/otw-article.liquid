@@ -1,0 +1,57 @@
+<div class="aac-container-1">
+  <div class="aac-wrap-1">
+    <div class="aac-wrap-2">
+      <div class="axe-wrap-5-2">
+        <div class="axe-wrap-6-1">
+            {% for tag in article.tags %}
+                <div class="axe-text-1-2">{{ tag }}</div>
+            {% endfor %}
+        </div>
+        <div class="axe-wrap-7-1">
+          <h1 class="axe-heading-1-2">{{ article.title }}</h1>
+        </div>
+        <div class="axe-wrap-8-1">
+          <div class="axe-wrap-1-5">
+            <div class="axe-wrap-1-7">
+                {% assign author = article.metafields.post.author.value %}
+                {% if author.image %}
+                {% render 'otw-image', image: author.image, class: 'axe-icon-1-1' %}
+                {% else %}
+                    <img src="{{ 'otw-icon-author-placeholder-white.png' | asset_url }}" width="auto" height="auto" loading="lazy" alt="" class="axe-icon-1-1">
+                {% endif %}
+            </div>
+            <div class="axe-wrap-1-8">
+              <div class="axe-text-2-2">{{ author.name }}</div>
+            </div>
+          </div>
+          <div class="axe-wrap-1-6">
+            <div class="axe-text-3-2">{{ article.published_at | date: '%B %d, %Y' }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="aac-wrap-3">
+      <div class="aac-image-wrap-1">
+        {% render 'otw-image', image: article.image, class: 'aac-blog-post-image-1' %}
+      </div>
+      <div class="aac-rich-text-1 w-richtext">
+        {{ article.content }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Octra | Article",
+  "tag": "section",
+  "class": "aac-section-1",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Octra | Article",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

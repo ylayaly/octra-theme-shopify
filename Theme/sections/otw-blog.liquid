@@ -1,0 +1,82 @@
+<script src="{{ 'otw-blog.js' | asset_url }}" defer></script>
+{%- paginate blog.articles by 2 -%}
+  <div class="axe-container-1">
+    <div class="axe-wrap-1">
+      <div class="axe-grid-1" data-otw-blog-posts>
+        {%- for article in blog.articles -%}
+          {% assign author = article.metafields.post.author.value %}
+          <a href="{{ article.url }}" class="axe-wrap-3 w-inline-block" data-otw-blog-post>
+            <div class="axe-wrap-4">
+              {% render 'otw-image', image: article.image, class: 'axe-image-1' %}
+            </div>
+            <div class="axe-wrap-5">
+              <div class="axe-wrap-6">
+                {% for tag in article.tags limit: 3 %}
+                  <div class="axe-text-1">{{ tag }}</div>
+                {% endfor %}
+              </div>
+              <div class="axe-wrap-7">
+                <h3 class="axe-heading-1">{{ article.title }}</h3>
+              </div>
+              <div class="axe-wrap-8">
+                <div class="axe-wrap-1-4">
+                  <div class="axe-wrap-1-1">
+                    {% if author.image %}
+                      {% render 'otw-image', image: author.image, class: 'axe-icon-1' %}
+                    {% else %}
+                      <img
+                        src="{{ 'otw-icon-author-placeholder-white.png' | asset_url }}"
+                        width="auto"
+                        height="auto"
+                        loading="lazy"
+                        alt=""
+                        class="axe-icon-1"
+                      >
+                    {% endif %}
+                  </div>
+                  <div class="axe-wrap-1-2">
+                    <div class="axe-text-2">{{ author.name }}</div>
+                  </div>
+                </div>
+                <div class="axe-wrap-1-3">
+                  <div class="axe-text-3">{{ article.published_at | date: '%B %d, %Y' }}</div>
+                </div>
+              </div>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+      <div class="axe-button-wrapper-1">
+        <a href="#" data-otw-load-more class="axe-button-1 w-button">Load More</a>
+      </div>
+    </div>
+  </div>
+  <div style="display: none">
+      {%- if paginate.pages > 1 and paginate.parts.size > 0 and paginate.next -%}
+        <a
+          href="{{ paginate.next.url }}{{ anchor }}"
+          aria-label="{{ 'general.pagination.next' | t }}"
+          data-otw-next-page
+        >
+        </a>
+      {%- endif -%}
+  </div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Octra | Blog",
+  "tag": "section",
+  "class": "axe-section-1",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [],
+  "presets": [
+    {
+      "name": "Octra | Blog",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
