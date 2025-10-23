@@ -62,8 +62,8 @@
                   </div>
                 </div>
                 {%- if form.posted_successfully? -%}
-                  <div class="w-form-done" id="ContactFooter-success" tabindex="-1" autofocus>
-                    <div>{{- 'newsletter.success' | t }}</div>
+                  <div class="success-message w-form-done" id="ContactFooter-success" tabindex="-1" autofocus>
+                    <div class="success-message_text">{{- 'newsletter.success' | t }}</div>
                   </div>
                 {%- endif -%}
 
@@ -232,25 +232,40 @@
       <div class="jus-wrap-2">
         <div class="jus-text-1">{{ 'now' | date: '%Y' }}, {{ shop.name }}. {{ section.settings.copyright_text }}</div>
         {%- if section.settings.show_policy -%}
-            
-            {%- for policy in shop.policies -%}
-              {%- if policy != blank -%}
-                <a href="{{ policy.url }}" class="jus-link-1">{{ policy.title | escape }}</a>
-                
-                {%- unless forloop.last -%}
-                  <div class="jus-wrap-4"> </div>
-                {%- endunless -%}
+          {%- for policy in shop.policies -%}
+            {%- if policy != blank -%}
+              <a href="{{ policy.url }}" class="jus-link-1">{{ policy.title | escape }}</a>
 
-              {%- endif -%}
-            {%- endfor -%}
-
+              {%- unless forloop.last -%}
+                <div class="jus-wrap-4"></div>
+              {%- endunless -%}
+            {%- endif -%}
+          {%- endfor -%}
         {%- endif -%}
-
       </div>
       <div class="jus-wrap-3">
-        <img src="images/Visa.svg" loading="lazy" alt="" class="jus-icon-1"
-        ><img src="images/Mastercard.svg" loading="lazy" alt="" class="jus-icon-1"
-        ><img src="images/Amex.svg" loading="lazy" alt="" class="jus-icon-1">
+        {% if section.settings.payment_enable %}
+          {% if shop.enabled_payment_types.size > 0 %}
+            {%- for type in shop.enabled_payment_types -%}
+              <div class="jus-icon-1">
+                {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+              </div>
+            {%- endfor -%}
+          {% else %}
+            <div class="jus-icon-1">
+              {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+            </div>
+            <div class="jus-icon-1">
+              {{ 'otw-icon-pay-visa.svg' | inline_asset_content }}
+            </div>
+            <div class="jus-icon-1">
+              {{ 'otw-icon-pay-mastercard.svg' | inline_asset_content }}
+            </div>
+            <div class="jus-icon-1">
+              {{ 'otw-icon-pay-amex.svg' | inline_asset_content }}
+            </div>
+          {% endif %}
+        {% endif %}
       </div>
     </div>
   </div>

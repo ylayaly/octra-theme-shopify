@@ -1,4 +1,4 @@
-{% assign component = section.settings.component %}
+{% assign component = product.metafields.page.faqs.value %}
 {% if component != blank %}
   {% render 'otw-faqs-component', component: component, heading_tag: section.settings.heading_tag %}
 {% endif %}
@@ -7,17 +7,11 @@
 {
   "name": "Octra | FAQs",
   "tag": "section",
-  "class": "plo-section-1",
+  "class": "plo-section-1 otw-product-faqs",
   "disabled_on": {
     "groups": ["header", "footer"]
   },
   "settings": [
-    {
-      "type": "metaobject",
-      "id": "component",
-      "label": "Component",
-      "metaobject_type": "faqs_component"
-    },
     {
       "type": "select",
       "id": "heading_tag",
@@ -41,7 +35,7 @@
   ],
   "presets": [
     {
-      "name": "Octra | FAQs",
+      "name": "Octra | Compare",
       "category": "Custom"
     }
   ]

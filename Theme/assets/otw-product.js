@@ -2,17 +2,20 @@
 const breadcrumb_product_collection = $("#fk-product-collection")
 if (breadcrumb_product_collection.length > 0) {
     const history = document.referrer;
+
     if (history) {
         const url = new URL(history);
         const referrerCollection = url.pathname;
-        const collections = $("#fk-product-collections span");
-        const collection = collections.filter(function () {
-            const collectionUrl = $(this).data("url");
+        const collections = document.querySelectorAll("[data-collection-item]");
+        const nodesArray = [...collections];
+        const collection = nodesArray.filter((el) => {
+            const collectionUrl = el.dataset.url;
             return collectionUrl == referrerCollection;
         });
+        
         if (collection.length > 0) {
-            breadcrumb_product_collection.text(collection.data("title"));
-            breadcrumb_product_collection.attr("href", collection.data("url"));
+            breadcrumb_product_collection.text(collection[0].dataset.title);
+            breadcrumb_product_collection.attr("href", collection[0].dataset.url);
         }
     }
 }

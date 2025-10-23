@@ -29,28 +29,28 @@
             "text_style": "subtitle"
           }
         },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "show_label": false,
+            "picker_type": "button",
+            "swatch_shape": "none"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
         "benefits": {
           "type": "otw-benefits",
           "settings": {}
         },
-        "features": {
-          "type": "otw-features",
-          "settings": {}
-        },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "swatch_shape": "none",
-            "show_label": true,
-          }
-        },
         "subscriptions_app_block_8UJeUe": {
           "type": "shopify://apps/subscriptions/blocks/app-block/a3bfe9ec-96f8-4508-a003-df608a36d2ad",
           "settings": {
-            "color_text_body": "#6D7175",
-            "dividers_color": "#8F8D8D",
-            "bacgkround_color": "#FFFFFF",
+            "color_text_body": "#6d7175",
+            "dividers_color": "#8f8d8d",
+            "bacgkround_color": "#ffffff",
             "border_thickness": 1,
             "border_radius": 0,
             "subscription_policy_url": "",
@@ -59,13 +59,14 @@
         },
         "otw_qty_add_to_cart": {
           "type": "otw_qty_add_to_cart",
-          "settings": {}
+          "settings": {
+            "show_gift_card_recipient": true
+          }
         },
-        "description": {
-          "type": "description",
+        "features": {
+          "type": "otw-features",
           "settings": {}
         }
-        
       },
       "block_order": [
         "rating",
@@ -79,6 +80,7 @@
         "features"
       ],
       "settings": {
+        "media_size": "large",
         "media_fit": "contain",
         "gallery_layout": "thumbnail_slider",
         "mobile_thumbnails": "show",
@@ -101,16 +103,15 @@
       "settings": {}
     },
     "faqs": {
-      "type": "otw-section-faqs",
+      "type": "otw-product-faqs",
       "settings": {
-        "component": "frequently-asked-questions",
         "heading_tag": "h2"
       }
     },
     "featured_collection": {
       "type": "otw-featured-collection",
       "settings": {
-        "collection": "frontpage",
+        "collection": "shop",
         "heading_tag": "h2"
       }
     }

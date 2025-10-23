@@ -1,10 +1,19 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
     "otw-footer": {
       "type": "otw-footer",
-        "blocks": {
+      "blocks": {
         "footer-0": {
           "type": "link_list",
           "settings": {
@@ -33,8 +42,17 @@
         "footer-2"
       ],
       "settings": {
+        "newsletter_enable": true,
+        "newsletter_heading": "Subscribe to Our Emails",
+        "newsletter_subheading": "Join our email list for the latest news, product launches, and exclusive offers.",
+        "heading": "Clean, science-backed supplements designed to fuel focus, strength, and balance for everyday living.",
+        "show_social": true,
+        "copyright_text": "All rights reserved.",
+        "menu": "footer",
+        "payment_enable": true,
+        "show_policy": true
       }
-    },
+    }
   },
   "order": [
     "otw-footer"

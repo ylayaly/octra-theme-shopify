@@ -18,7 +18,7 @@
         "heading": "Fuel Your Mind. Power Your Body.",
         "subheading": "Effective daily supplements crafted with proven ingredients. Simple routines, powerful results.",
         "cta_text": "Shop Now",
-        "link": ""
+        "link": "shopify://collections/shop"
       }
     },
     "icon_text": {
@@ -28,7 +28,7 @@
           "type": "icon_text",
           "settings": {
             "icon_svg": "otw-icon-science.svg",
-            "text": "Science Backed"
+            "text": "Science-Backed"
           }
         },
         "icon_text_AiPyi8": {
@@ -42,7 +42,7 @@
           "type": "icon_text",
           "settings": {
             "icon_svg": "otw-icon-sugar-free.svg",
-            "text": "Sugar Free"
+            "text": "Sugar-Free"
           }
         },
         "icon_text_dL9RcK": {
@@ -64,19 +64,19 @@
     "featured_collection": {
       "type": "otw-featured-collection",
       "settings": {
-        "collection": "frontpage",
+        "collection": "shop",
         "heading_tag": "h2"
       }
     },
     "cta": {
       "type": "otw-cta",
       "settings": {
-        "image": "shopify://shop_images/image-22.png",
+        "image": "shopify://shop_images/Lifestyle_Section_-_Image.png",
         "heading_tag": "h2",
         "heading": "Made for Everyone and Every Lifestyle",
-        "content": "From ambitious students to busy professionals, from dedicated gym-goers to those investing in long-term health, Octra is built for every lifestyle. Whether you’re building strength, sharpening focus, or simply supporting daily wellness, our supplements make consistency simple, whatever stage of life you’re in.",
+        "content": "From ambitious students to busy professionals, from dedicated gym-goers to those investing in long-term health—OCTRA is built for every lifestyle. Whether you’re building strength, sharpening focus, or simply supporting daily wellness, our supplements make consistency simple at every stage of life.",
         "cta_text": "VIEW THE COLLECTION",
-        "link": ""
+        "link": "shopify://collections/shop"
       }
     },
     "compare": {
@@ -90,7 +90,7 @@
       "type": "otw-testimonials-grid",
       "settings": {
         "heading_tag": "h2",
-        "heading": "Real People, Real Results.",
+        "heading": "Real People. Real Results.",
         "subheading": "OCTRA supplements are designed for real life—simple, effective, and enjoyable. But don’t just take our word for it. Here’s what our community has to say.",
         "testimonials": [
           "alex-23",

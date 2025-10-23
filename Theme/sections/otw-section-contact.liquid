@@ -88,8 +88,8 @@
 
 
         {%- if form.posted_successfully? -%}
-            <div class="w-form-done" tabindex="-1" autofocus>
-                <div>{{ 'templates.contact.form.post_success' | t }}</div>
+            <div class="w-form-done success-message-2" tabindex="-1" autofocus>
+                <div class="success-message_text-2">{{ 'templates.contact.form.post_success' | t }}</div>
             </div>
         {%- elsif form.errors -%}
             <div class="w-form-fail" role="alert" tabindex="-1" autofocus>

@@ -1,5 +1,5 @@
 <script src="{{ 'otw-blog.js' | asset_url }}" defer></script>
-{%- paginate blog.articles by 2 -%}
+{%- paginate blog.articles by 12 -%}
   <div class="axe-container-1">
     <div class="axe-wrap-1">
       <div class="axe-grid-1" data-otw-blog-posts>
@@ -46,9 +46,11 @@
           </a>
         {%- endfor -%}
       </div>
+      {%- if paginate.pages > 1 and paginate.parts.size > 0 and paginate.next -%}
       <div class="axe-button-wrapper-1">
         <a href="#" data-otw-load-more class="axe-button-1 w-button">Load More</a>
       </div>
+      {%- endif -%}
     </div>
   </div>
   <div style="display: none">

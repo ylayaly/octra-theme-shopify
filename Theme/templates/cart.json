@@ -11,10 +11,7 @@
   "sections": {
     "cart-items": {
       "type": "otw-cart-items",
-      "settings": {
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
+      "settings": {}
     },
     "cart-footer": {
       "type": "otw-cart-footer",
@@ -37,10 +34,10 @@
     "featured-collection": {
       "type": "otw-featured-collection",
       "settings": {
-        "collection": "frontpage",
+        "collection": "shop",
         "heading_tag": "h2"
       }
-    },
+    }
   },
   "order": [
     "cart-items",

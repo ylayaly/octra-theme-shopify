@@ -73,7 +73,11 @@
 
   <div style="display: none;" id="fk-product-collections">
     {% for item in product.collections %}
-      <span data-url="{{ item.url }}" data-title="{{ item.title }}"></span>
+      <span
+        data-collection-item
+        data-url="{{ item.url }}"
+        data-title="{{ item.metafields.product.breadcrumb_label | default: item.title }}"
+      ></span>
     {% endfor %}
   </div>
 
@@ -86,72 +90,74 @@
         {% assign first_collection = product.collections.first %}
         {% if first_collection.title %}
           <a href="{{ first_collection.url }}" id="fk-product-collection" class="def-link-1">
-            {{- first_collection.title | escape -}}
+            {{- first_collection.metafields.product.breadcrumb_label | default: first_collection.title | escape -}}
           </a>
           <div class="def-text-1">&gt;</div>
         {% endif %}
         <a href="{{ product.url }}" class="def-link-1 line">{{ product.title }}</a>
       </div>
       <div class="product product--large product--left product--thumbnail_slider product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-        <div class="grid__item product__media-wrapper">
-          {% render 'product-media-gallery', variant_images: variant_images %}
-          {% assign accordions = product.metafields.page.accordions.value %}
-          {% if accordions %}
-            <div class="def-wrap-7">
-              {% assign accordions = product.metafields.page.accordions.value %}
-
-              {% for item in accordions %}
-                <div class="def-wrap-4-1">
-                  <div otw-toggle class="def-wrap-5-1">
-                    <div class="def-wrap-7-1">
-                      <div class="def-text-1-1">{{ item.heading }}</div>
-                    </div>
-                    <div class="def-wrap-1-3">
-                      <img
-                        src="{{ 'otw-icon-plus.png' | asset_url }}"
-                        width="auto"
-                        height="auto"
-                        loading="lazy"
-                        style="display:block"
-                        alt=""
-                        class="def-icon-3-1"
-                      >
-                      <img
-                        src="{{ 'otw-icon-minus.svg' | asset_url }}"
-                        width="auto"
-                        height="auto"
-                        loading="lazy"
-                        alt=""
-                        class="def-icon-4-1"
-                      >
-                    </div>
-                  </div>
-                  <div class="def-wrap-6-1">
-                    <div class="def-rich-text-1 w-richtext">
-                      {{ item.content | metafield_tag }}
-                    </div>
-                  </div>
-                </div>
-              {% endfor %}
-            </div>
-          {% endif %}
-        </div>
-
         <div class="product__info-wrapper grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-          <section
-            id="ProductInfo-{{ section.id }}"
-            class="product__info-container def-wrap-5"
-          >
+          <section id="ProductInfo-{{ section.id }}" class="product__info-container def-wrap-5">
+            {% if product.media.size > 0 %}
+              <div class="grid__item product__media-wrapper" style="grid-area: 1 / 1 / {{ section.blocks | size | plus: 1 }} / span 1;">
+                {% render 'product-media-gallery', variant_images: variant_images %}
+                {% assign accordions = product.metafields.page.accordions.value %}
+                {% if accordions %}
+                  <div class="def-wrap-7 def-wrap-only-desktop">
+                    {% assign accordions = product.metafields.page.accordions.value %}
+
+                    {% for item in accordions %}
+                      <div class="def-wrap-4-1">
+                        <div otw-toggle class="def-wrap-5-1">
+                          <div class="def-wrap-7-1">
+                            <div class="def-text-1-1">{{ item.heading }}</div>
+                          </div>
+                          <div class="def-wrap-1-3">
+                            <img
+                              src="{{ 'otw-icon-plus.png' | asset_url }}"
+                              width="auto"
+                              height="auto"
+                              loading="lazy"
+                              alt=""
+                              class="def-icon-3-1"
+                            >
+                            <img
+                              src="{{ 'otw-icon-minus.svg' | asset_url }}"
+                              width="auto"
+                              height="auto"
+                              loading="lazy"
+                              alt=""
+                              class="def-icon-4-1"
+                            >
+                          </div>
+                        </div>
+                        <div class="def-wrap-6-1">
+                          <div class="def-rich-text-1 w-richtext">
+                            {{ item.content | metafield_tag }}
+                          </div>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+
             {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
             {%- for block in section.blocks -%}
               {%- case block.type -%}
                 {%- when '@app' -%}
-                  {% render block %}
                   {% if block.id contains 'subscriptions_app_block' %}
-                    {% render 'otw-selling-plan-selector', product: product %}
+                    <div>
+                      {% render block %}
+                      {% render 'otw-selling-plan-selector', product: product %}
+                    </div>
+                  {% else %}
+                    <div>{% render block %}</div>
                   {% endif %}
-                  
+
                 {%- when 'otw-rating' -%}
                   <div class="def-wrap-9" {{ block.shopify_attributes }}>
                     <div class="def-text-2">{{- block.settings.text -}}</div>
@@ -280,7 +286,7 @@
                       {% endfor %}
                     </div>
                   {%- endif -%}
-                  
+
                 {%- when 'otw-features' -%}
                   {%- if product.metafields.custom.page_features.value != blank -%}
                     <div class="def-wrap-1-8">
@@ -587,17 +593,17 @@
                     show_pickup_availability: true
                   -%}
                 {%- when 'otw_qty_add_to_cart' -%}
-                    <div class="def-wrap-1-7">
-                      {% render 'otw-quantity-selector', product: product, section: section, settings: settings %}
-                      {%- render 'buy-buttons',
-                        block: block,
-                        product: product,
-                        product_form_id: product_form_id,
-                        section_id: section.id,
-                        show_pickup_availability: true,
-                        show_price: true
-                      -%}
-                    </div>
+                  <div class="def-wrap-1-7">
+                    {% render 'otw-quantity-selector', product: product, section: section, settings: settings %}
+                    {%- render 'buy-buttons',
+                      block: block,
+                      product: product,
+                      product_form_id: product_form_id,
+                      section_id: section.id,
+                      show_pickup_availability: true,
+                      show_price: true
+                    -%}
+                  </div>
                 {%- when 'rating' -%}
                   {%- if product.metafields.reviews.rating.value != blank -%}
                     <div class="rating-wrapper">
@@ -789,6 +795,47 @@
                   {% render 'icon-with-text', block: block %}
               {%- endcase -%}
             {%- endfor -%}
+
+            {% assign accordions = product.metafields.page.accordions.value %}
+            {% if accordions %}
+              <div class="def-wrap-7 def-wrap-only-mobile">
+                {% assign accordions = product.metafields.page.accordions.value %}
+
+                {% for item in accordions %}
+                  <div class="def-wrap-4-1">
+                    <div otw-toggle class="def-wrap-5-1">
+                      <div class="def-wrap-7-1">
+                        <div class="def-text-1-1">{{ item.heading }}</div>
+                      </div>
+                      <div class="def-wrap-1-3">
+                        <img
+                          src="{{ 'otw-icon-plus.png' | asset_url }}"
+                          width="auto"
+                          height="auto"
+                          loading="lazy"
+                          alt=""
+                          class="def-icon-3-1"
+                        >
+                        <img
+                          src="{{ 'otw-icon-minus.svg' | asset_url }}"
+                          width="auto"
+                          height="auto"
+                          loading="lazy"
+                          alt=""
+                          class="def-icon-4-1"
+                        >
+                      </div>
+                    </div>
+                    <div class="def-wrap-6-1">
+                      <div class="def-rich-text-1 w-richtext">
+                        {{ item.content | metafield_tag }}
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
             <a href="{{ product.url }}" class="link product__view-details animate-arrow">
               {{ 'products.product.view_full_details' | t }}
               {{- 'icon-arrow.svg' | inline_asset_content -}}
